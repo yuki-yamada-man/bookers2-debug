@@ -4,6 +4,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @user = @book.user
     @book_new = Book.new
+    @book_comment = BookComment.new
   end
 
   def index
@@ -17,6 +18,7 @@ class BooksController < ApplicationController
     if @book.save
       redirect_to book_path(@book.id), notice: "You have created book successfully."
     else
+      @user = current_user
       @books = Book.all
       render 'index'
     end
